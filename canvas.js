@@ -6,12 +6,22 @@
                               window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
   window.requestAnimationFrame = requestAnimationFrame;
 })();
+
+(function (root, factory) {
+    if (typeof define === 'function' && define.amd) {
+        // AMD. Register arcade.
+        define('canvas', [], factory);
+    } else {
+        // Browser globals
+        root.canvas = factory();
+    }
+}(window,
 /**
  * canvas
  * The canvas module.
  * @author 
  */
-define([], function() {
+function() {
 	var ctx = function(opts){
 	  //should set up a context here import by name using require
 	  var canvas = document.createElement('canvas');

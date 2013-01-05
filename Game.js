@@ -1,5 +1,14 @@
 "use strict";
 
+(function (root, factory) {
+    if (typeof define === 'function' && define.amd) {
+        // AMD. Register arcade.
+        define('Game', ['./Catalyst/Catalyst'], factory);
+    } else {
+        // Browser globals
+        root.Game = factory(root.Catalyst);
+    }
+}(window,
 /**
  * game
  * The Game module.
@@ -7,7 +16,7 @@
  *
  * I'll have this be the engine..ticks and such..eventually want it modular enough to move to a worker
  */
-define(['./Catalyst/Catalyst'], function(Catalyst) {
+ function(Catalyst) {
   var Game = function(opts, start){
     var self = this;
 
@@ -17,10 +26,6 @@ define(['./Catalyst/Catalyst'], function(Catalyst) {
     //this.credits = 0;
     //
     var self = this;
-    require([opts.ctx], function(setup){
-      self.ctx = setup(opts);
-      start();
-    });
 
     Catalyst(this);
 
@@ -68,6 +73,23 @@ define(['./Catalyst/Catalyst'], function(Catalyst) {
     }
     frame();
    };
+
+  (function (root, factory) {
+      if (typeof define === 'function' && define.amd) {
+          // AMD. Register arcade.
+          require([opts.ctx], factory);
+      } else {
+        // Browser globals
+        factory(opts.ctx);
+      }
+  }(window,
+    function(ctx){
+      self.ctx = ctx(opts);
+      if(typeof start !== 'undefined'){
+        start();
+      }
+    }
+  );
 
   return Game;
 });

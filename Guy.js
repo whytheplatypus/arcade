@@ -1,11 +1,20 @@
 "use strict";
 
+(function (root, factory) {
+    if (typeof define === 'function' && define.amd) {
+        // AMD. Register arcade.
+        define('Guy', ['./Entity'], factory);
+    } else {
+        // Browser globals
+        root.Guy = factory(root.Entity);
+    }
+}(window,
 /**
  * Guy
  * The Guy module.
  * @author whytheplatypus
  */
-define(['./Entity'], function(Entity) {
+function(Entity) {
 	/**
 	 * Guy
 	 *

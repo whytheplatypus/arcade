@@ -23,8 +23,16 @@ this needs to work for nodejs too
   window.requestAnimationFrame = requestAnimationFrame;
 })();
 
-define(['./Game', './Guy', './Enemy', './Entity', './Catalyst/Catalyst'], function(Game, Guy, Enemy, Entity, Catalyst){
-	var arcade = {
+(function (root, factory) {
+    if (typeof define === 'function' && define.amd) {
+        // AMD. Register arcade.
+        define('arcade', ['./Game', './Guy', './Enemy', './Entity', './Catalyst/Catalyst'], factory);
+    } else {
+        // Browser globals
+        root.arcade = factory(root.Game, root.Guy, root.Enemy, root.Entity, root.Catalyst);
+    }
+}(window, function(Game, Guy, Enemy, Entity, Catalyst){
+    var arcade = {
         Game: Game,
         Guy: Guy,
         Enemy: Enemy,
@@ -32,5 +40,5 @@ define(['./Game', './Guy', './Enemy', './Entity', './Catalyst/Catalyst'], functi
         Catalyst: Catalyst
     };
 
-	return arcade;
-});
+    return arcade;
+}));
