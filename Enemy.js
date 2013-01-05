@@ -23,4 +23,4 @@ function(Entity) {
   Enemy.prototype = new Entity();
 
   return Enemy;
-});
+}));

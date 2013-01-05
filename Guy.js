@@ -27,4 +27,4 @@ function(Entity) {
   Guy.prototype = new Entity();
 
   return Guy;
-});
+}));

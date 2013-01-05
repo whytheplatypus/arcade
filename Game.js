@@ -35,13 +35,30 @@
       ent.on('die', function(event){
         self.remove(event);
       });
-    }
+    };
 
     this.remove = function(ent){
       //var entity = this.entities[ent.uid];
       delete this.entities[ent.uid];
       //entity = null;
-    }
+    };
+
+    (function (root, factory) {
+      if (typeof define === 'function' && define.amd) {
+          // AMD. Register arcade.
+          require([opts.ctx], factory);
+      } else {
+        // Browser globals
+        factory(opts.ctx);
+      }
+    }(window,
+      function(ctx){
+        self.ctx = ctx(opts);
+        if(typeof start !== 'undefined'){
+          start();
+        }
+      }
+    ));
   };
 
   Game.prototype.tick = function() {
@@ -74,22 +91,7 @@
     frame();
    };
 
-  (function (root, factory) {
-      if (typeof define === 'function' && define.amd) {
-          // AMD. Register arcade.
-          require([opts.ctx], factory);
-      } else {
-        // Browser globals
-        factory(opts.ctx);
-      }
-  }(window,
-    function(ctx){
-      self.ctx = ctx(opts);
-      if(typeof start !== 'undefined'){
-        start();
-      }
-    }
-  );
+  
 
   return Game;
-});
+}));

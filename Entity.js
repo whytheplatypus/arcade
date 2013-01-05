@@ -25,4 +25,4 @@ function(Catalyst) {
   
 
   return Entity;
-});
+}));
